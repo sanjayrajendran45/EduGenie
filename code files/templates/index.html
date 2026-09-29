@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="EduGenie - AI Powered Learning Assistant"
+    >
+
+    <title>EduGenie | AI Learning Assistant</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', path='style.css') }}"
+    >
+</head>
+
+
+<body>
+
+    <!-- ================================
+         BACKGROUND EFFECTS
+    ================================= -->
+
+    <div class="background-glow glow-one"></div>
+    <div class="background-glow glow-two"></div>
+
+
+    <!-- ================================
+         SIDEBAR
+    ================================= -->
+
+    <aside class="sidebar" id="sidebar">
+
+        <div class="sidebar-brand">
+
+            <div class="brand-logo">
+                🎓
+            </div>
+
+            <div>
+                <h2>Edu<span>Genie</span></h2>
+                <p>AI Learning Assistant</p>
+            </div>
+
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+            <button
+                class="nav-item active"
+                onclick="selectTask('home', this)"
+            >
+                <span class="nav-icon">⌂</span>
+                <span>Dashboard</span>
+            </button>
+
+
+            <button
+                class="nav-item"
+                onclick="selectTask('question', this)"
+            >
+                <span class="nav-icon">💬</span>
+                <span>Ask Question</span>
+            </button>
+
+
+            <button
+                class="nav-item"
+                onclick="selectTask('explain', this)"
+            >
+                <span class="nav-icon">💡</span>
+                <span>Explain Topic</span>
+            </button>
+
+
+            <button
+                class="nav-item"
+                onclick="selectTask('summary', this)"
+            >
+                <span class="nav-icon">▤</span>
+                <span>Summarize Text</span>
+            </button>
+
+
+            <button
+                class="nav-item"
+                onclick="selectTask('quiz', this)"
+            >
+                <span class="nav-icon">?</span>
+                <span>Generate Quiz</span>
+            </button>
+
+
+            <button
+                class="nav-item"
+                onclick="selectTask('learning', this)"
+            >
+                <span class="nav-icon">▥</span>
+                <span>Learning Path</span>
+            </button>
+
+        </nav>
+
+
+        <div class="sidebar-divider"></div>
+
+
+        <nav class="sidebar-nav secondary">
+
+            <button class="nav-item">
+                <span class="nav-icon">◷</span>
+                <span>History</span>
+            </button>
+
+
+            <button class="nav-item">
+                <span class="nav-icon">♡</span>
+                <span>Saved Notes</span>
+            </button>
+
+
+            <button class="nav-item">
+                <span class="nav-icon">⚙</span>
+                <span>Settings</span>
+            </button>
+
+        </nav>
+
+
+        <!-- SIDEBAR PROMO -->
+
+        <div class="sidebar-promo">
+
+            <div class="promo-icon">
+                👑
+            </div>
+
+            <h3>
+                Unlock Your
+                Learning Potential
+            </h3>
+
+            <p>
+                Learn smarter with
+                EduGenie AI.
+            </p>
+
+            <button
+                onclick="scrollToWorkspace()"
+            >
+                Start Learning
+                <span>→</span>
+            </button>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- ================================
+         MAIN CONTENT
+    ================================= -->
+
+    <main class="main-content">
+
+
+        <!-- HEADER -->
+
+        <header class="top-header">
+
+            <button
+                class="mobile-menu"
+                onclick="toggleSidebar()"
+            >
+                ☰
+            </button>
+
+
+            <div class="header-search">
+
+                <span>⌕</span>
+
+                <input
+                    type="text"
+                    placeholder="Search any topic..."
+                    id="globalSearch"
+                    onkeydown="handleSearch(event)"
+                >
+
+                <kbd>Ctrl K</kbd>
+
+            </div>
+
+
+            <div class="header-actions">
+
+                <button
+                    class="header-button"
+                    onclick="toggleTheme()"
+                    title="Toggle theme"
+                >
+                    ☼
+                </button>
+
+
+                <button
+                    class="header-button notification"
+                    title="Notifications"
+                >
+                    ♡
+                    <span></span>
+                </button>
+
+
+                <div class="profile">
+
+                    <div class="profile-avatar">
+                        S
+                    </div>
+
+                    <div class="profile-info">
+
+                        <strong>
+                            Student
+                        </strong>
+
+                        <small>
+                            Learner
+                        </small>
+
+                    </div>
+
+                    <span class="profile-arrow">
+                        ▾
+                    </span>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- ================================
+             DASHBOARD
+        ================================= -->
+
+        <div class="dashboard">
+
+
+            <!-- HERO -->
+
+            <section class="hero">
+
+                <div class="hero-content">
+
+                    <div class="gemini-badge">
+                        ✦ Powered by Google Gemini
+                    </div>
+
+
+                    <h1>
+                        Learn Smarter
+                        <br>
+                        With
+                        <span>EduGenie</span>
+                    </h1>
+
+
+                    <p>
+                        Ask questions, get clear explanations,
+                        summarize your notes, generate quizzes,
+                        and build personalized learning paths —
+                        all in one powerful AI learning assistant.
+                    </p>
+
+
+                    <div class="hero-buttons">
+
+                        <button
+                            onclick="selectTask('question')"
+                            class="hero-button"
+                        >
+                            🎯 Learn Faster
+                        </button>
+
+                        <button
+                            onclick="selectTask('explain')"
+                            class="hero-button"
+                        >
+                            ⚡ Build Skills
+                        </button>
+
+                        <button
+                            onclick="selectTask('learning')"
+                            class="hero-button"
+                        >
+                            ✨ Personalized Plans
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="hero-visual">
+
+                    <div class="hero-glow"></div>
+
+                    <div class="robot">
+
+                        <div class="robot-cap">
+                            🎓
+                        </div>
+
+                        <div class="robot-head">
+
+                            <div class="robot-face">
+
+                                <span></span>
+                                <span></span>
+
+                            </div>
+
+                            <div class="robot-smile">
+                                ◡
+                            </div>
+
+                        </div>
+
+                        <div class="robot-body">
+
+                            <div class="robot-ai">
+                                AI
+                            </div>
+
+                            <div class="robot-book">
+                                📖
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="floating-icon icon-book">
+                        📖
+                    </div>
+
+                    <div class="floating-icon icon-light">
+                        💡
+                    </div>
+
+                    <div class="floating-icon icon-summary">
+                        📝
+                    </div>
+
+                    <div class="floating-icon icon-quiz">
+                        ❓
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- ================================
+                 FEATURE CARDS
+            ================================= -->
+
+            <section class="features-grid">
+
+
+                <div
+                    class="feature-card feature-blue"
+                    onclick="selectTask('question')"
+                >
+
+                    <div class="feature-icon">
+                        💬
+                    </div>
+
+                    <h3>
+                        Ask a Question
+                    </h3>
+
+                    <p>
+                        Get instant, accurate
+                        answers to your doubts.
+                    </p>
+
+                    <span class="feature-arrow">
+                        →
+                    </span>
+
+                </div>
+
+
+
+                <div
+                    class="feature-card feature-purple"
+                    onclick="selectTask('explain')"
+                >
+
+                    <div class="feature-icon">
+                        💡
+                    </div>
+
+                    <h3>
+                        Explain a Topic
+                    </h3>
+
+                    <p>
+                        Understand complex
+                        concepts in simple words.
+                    </p>
+
+                    <span class="feature-arrow">
+                        →
+                    </span>
+
+                </div>
+
+
+
+                <div
+                    class="feature-card feature-green"
+                    onclick="selectTask('summary')"
+                >
+
+                    <div class="feature-icon">
+                        📝
+                    </div>
+
+                    <h3>
+                        Summarize Text
+                    </h3>
+
+                    <p>
+                        Turn long content into
+                        short and clear notes.
+                    </p>
+
+                    <span class="feature-arrow">
+                        →
+                    </span>
+
+                </div>
+
+
+
+                <div
+                    class="feature-card feature-pink"
+                    onclick="selectTask('quiz')"
+                >
+
+                    <div class="feature-icon">
+                        ❓
+                    </div>
+
+                    <h3>
+                        Generate a Quiz
+                    </h3>
+
+                    <p>
+                        Create practice questions
+                        to test your knowledge.
+                    </p>
+
+                    <span class="feature-arrow">
+                        →
+                    </span>
+
+                </div>
+
+
+
+                <div
+                    class="feature-card feature-orange"
+                    onclick="selectTask('learning')"
+                >
+
+                    <div class="feature-icon">
+                        📊
+                    </div>
+
+                    <h3>
+                        Learning Path
+                    </h3>
+
+                    <p>
+                        Get a personalized
+                        step-by-step study plan.
+                    </p>
+
+                    <span class="feature-arrow">
+                        →
+                    </span>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- ================================
+                 WORKSPACE
+            ================================= -->
+
+            <section
+                class="workspace"
+                id="workspace"
+            >
+
+                <div class="workspace-header">
+
+                    <div>
+
+                        <div class="workspace-title">
+
+                            <div class="ai-small-icon">
+                                🤖
+                            </div>
+
+                            <div>
+
+                                <h2>
+                                    Choose a Task and
+                                    Start Learning
+                                </h2>
+
+                                <p>
+                                    Your AI-powered study
+                                    workspace
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        class="upload-button"
+                        onclick="showUploadMessage()"
+                    >
+                        📎 Upload File
+                    </button>
+
+                </div>
+
+
+
+                <!-- TASK TABS -->
+
+                <div class="task-tabs">
+
+                    <button
+                        class="task-tab active"
+                        data-task="question"
+                        onclick="selectTask('question')"
+                    >
+                        💬 Ask Question
+                    </button>
+
+
+                    <button
+                        class="task-tab"
+                        data-task="explain"
+                        onclick="selectTask('explain')"
+                    >
+                        💡 Explain Topic
+                    </button>
+
+
+                    <button
+                        class="task-tab"
+                        data-task="summary"
+                        onclick="selectTask('summary')"
+                    >
+                        📝 Summarize Text
+                    </button>
+
+
+                    <button
+                        class="task-tab"
+                        data-task="quiz"
+                        onclick="selectTask('quiz')"
+                    >
+                        ❓ Generate Quiz
+                    </button>
+
+
+                    <button
+                        class="task-tab"
+                        data-task="learning"
+                        onclick="selectTask('learning')"
+                    >
+                        📊 Learning Path
+                    </button>
+
+                </div>
+
+
+
+                <!-- INPUT -->
+
+                <div class="input-section">
+
+                    <textarea
+                        id="mainInput"
+                        maxlength="30000"
+                        placeholder="Type your question here..."
+                    ></textarea>
+
+
+                    <div class="input-footer">
+
+                        <span>
+                            💡 Try one of the examples below
+                        </span>
+
+                        <span id="characterCount">
+                            0 / 30000
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- EXAMPLES -->
+
+                <div
+                    class="examples"
+                    id="examples"
+                >
+
+                    <button
+                        onclick="useExample('What is the largest ocean?')"
+                    >
+                        What is the largest ocean?
+                    </button>
+
+                    <button
+                        onclick="useExample('Explain Pythagoras theorem')"
+                    >
+                        Explain Pythagoras theorem
+                    </button>
+
+                    <button
+                        onclick="useExample('Summarize this passage about artificial intelligence')"
+                    >
+                        Summarize this passage...
+                    </button>
+
+                    <button
+                        onclick="useExample('Generate a quiz on SQL')"
+                    >
+                        Generate a quiz on SQL
+                    </button>
+
+                    <button
+                        onclick="useExample('Create a learning path for Python')"
+                    >
+                        Learning path for Python
+                    </button>
+
+                </div>
+
+
+
+                <!-- ACTION BUTTON -->
+
+                <div class="workspace-action">
+
+                    <button
+                        id="mainActionButton"
+                        class="main-action-button"
+                        onclick="runCurrentTask()"
+                    >
+                        <span id="actionIcon">
+                            ➤
+                        </span>
+
+                        <span id="actionText">
+                            Ask Question
+                        </span>
+
+                    </button>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- ================================
+                 AI RESPONSE
+            ================================= -->
+
+            <section
+                class="response-card"
+                id="responseCard"
+            >
+
+                <div class="response-header">
+
+                    <div class="response-title">
+
+                        <div class="response-icon">
+                            🤖
+                        </div>
+
+                        <div>
+
+                            <h2>
+                                AI Response
+                            </h2>
+
+                            <p id="responseStatus">
+                                Your answer will appear here...
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        class="copy-button"
+                        onclick="copyResponse()"
+                        title="Copy response"
+                    >
+                        ⧉
+                    </button>
+
+                </div>
+
+
+                <div
+                    id="responseContent"
+                    class="response-content"
+                >
+
+                    <div class="empty-response">
+
+                        <div>
+                            ✨
+                        </div>
+
+                        <p>
+                            Ask EduGenie anything
+                        </p>
+
+                        <small>
+                            Your AI-generated response
+                            will appear here.
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- ================================
+                 STATS
+            ================================= -->
+
+            <section class="stats-grid">
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        🎓
+                    </div>
+
+                    <div>
+                        <strong>Learn</strong>
+                        <span>Every day</span>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        🧠
+                    </div>
+
+                    <div>
+                        <strong>Understand</strong>
+                        <span>Complex concepts</span>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        🚀
+                    </div>
+
+                    <div>
+                        <strong>Improve</strong>
+                        <span>Your skills</span>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        ✨
+                    </div>
+
+                    <div>
+                        <strong>Achieve</strong>
+                        <span>Your goals</span>
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+
+        <!-- FOOTER -->
+
+        <footer>
+
+            <p>
+                © 2026 EduGenie · AI Learning Assistant
+            </p>
+
+            <span>
+                Powered by Google Gemini
+            </span>
+
+        </footer>
+
+    </main>
+
+
+    <!-- TOAST -->
+
+    <div
+        id="toast"
+        class="toast"
+    >
+        <span>✓</span>
+        <span id="toastMessage">
+            Done
+        </span>
+    </div>
+
+
+    <script
+        src="{{ url_for('static', path='app.js') }}"
+    ></script>
+
+</body>
+
+</html>
